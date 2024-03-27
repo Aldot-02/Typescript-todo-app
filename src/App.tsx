@@ -1,74 +1,25 @@
-import React, { useEffect } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
-import TaskComponent from './components/taskComponent';
-import { addTask, deleteTask, getAllTasks, updateTask, markTaskAsComplete } from './api/handleApi';
-import { setTasks, setText, setIsUpdating, setTaskId } from './actions/taskAction';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './pages/homePage';
+import Auth from './pages/auth';
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-const App: React.FC<PropsFromRedux> = ({ tasks, text, isUpdating, taskId, setTasks, setText, setIsUpdating, setTaskId }) => {
-
-  useEffect(() => {
-    getAllTasks(setTasks)
-  }, [setTasks]);
-
-  const updateTaskMode = (_id: string, text: string) => {
-    setIsUpdating(true)
-    setText(text)
-    setTaskId(_id)
-  }
-
-  const sortedTasks = [...tasks].sort((a, b) => {
-    if (a.isComplete && !b.isComplete) return 1;
-    if (!a.isComplete && b.isComplete) return -1;
-    return 0;
-  });
-
+const App: React.FC = () => {
   return (
     <div className="App">
-      <div className="container">
-        <h1>ATLP TODO APP</h1>
-        <div className="top">
-          <input type="text" placeholder="Add your task here" value={text} onChange={(e) => setText(e.target.value)} />
-          <div
-            className="add"
-            onClick={isUpdating ?
-              () => updateTask(taskId, text, setTasks, setText, setIsUpdating)
-              : () => addTask(text, setText, setTasks)}>
-            {isUpdating ? "Update" : "Add"}
-          </div>
-        </div>
-        <div className="list">
-          {sortedTasks.map((item) =>
-            <TaskComponent
-              key={item._id}
-              text={item.text}
-              isComplete={item.isComplete}
-              updateTaskMode={() => updateTaskMode(item._id, item.text)}
-              deleteTask={() => deleteTask(item._id, setTasks)}
-              completeTask={() => markTaskAsComplete(item._id, setTasks)}
-            />
-          )}
-        </div>
-      </div>
+        <Routes>
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/" element={<HomePage />} />
+          <Route
+            path="*"
+            element={
+              <main style={{ padding: "1rem" }}>
+                <p>Something went wrong. There is nothing to display here!</p>
+              </main>
+            }
+          />
+        </Routes>
     </div>
   );
 }
 
-const mapStateToProps = (state: { tasks: { tasks: any; text: any; isUpdating: any; taskId: any; }; }) => ({
-  tasks: state.tasks.tasks,
-  text: state.tasks.text,
-  isUpdating: state.tasks.isUpdating,
-  taskId: state.tasks.taskId,
-});
-
-const mapDispatchToProps = {
-  setTasks,
-  setText,
-  setIsUpdating,
-  setTaskId,
-};
-
-const connector = connect(mapStateToProps, mapDispatchToProps)
-
-export default connector(App);
+export default App;

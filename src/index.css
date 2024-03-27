@@ -8,8 +8,8 @@ body {
   font-family: 'Roboto', sans-serif;
   background-color: #0A192F;
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   overflow-x: hidden;
   cursor: auto;
   margin: 0;
@@ -19,12 +19,75 @@ body {
 }
 
 .container {
-  max-width: 800px;
+  width: 80%;
   margin: auto;
   padding: 2rem 1rem;
   background-color: #04193a;
   border-radius: 5px;
   margin-top: 3rem;
+}
+
+.blur-popup {
+  filter: blur(2px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.navigation {
+  padding: 0.5rem;
+  border-radius: 50%;
+  border: 2px solid #b83700;
+  font-size: 22px;
+  color: #fff;
+  display: inline;
+  cursor: pointer;
+}
+
+.navigation.hidden {
+  display: none;
+}
+
+.popup {
+  position: absolute;
+  top: 135px;
+  left: 270px;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+
+.popup button {
+  padding: 0.5rem 1rem;
+  background-color: #b83700;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+}
+.popup-content p {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+.popup-content p span {
+  font-weight: bolder;
+  color: #b83700;
+}
+.buttons-div{
+  display: flex;
+  margin-top: 1rem;
+  gap: 20px;
+  align-items: center;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  color: #F45815;
+  margin-bottom: 15px;
 }
 
 h1 {
@@ -36,7 +99,8 @@ h1 {
 
 .top {
   margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
 }
@@ -45,8 +109,8 @@ input {
   outline: none;
   width: 100%;
   padding: 0.5rem;
-  border: 1px solid #b83700;
-  height: 30px;
+  border: none;
+  border-bottom: 1px solid #b83700;
   color: #ffffffd2;
   background-color: transparent;
 }
@@ -62,12 +126,15 @@ input {
 }
 
 .task {
-  position: relative;
   margin-bottom: 0.3rem;
   background-color: #b83700;
   color: #ffffffb6;
   padding: 1rem;
-  border-radius: 1px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .task.completed {
@@ -75,15 +142,41 @@ input {
 }
 
 .icons {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 20px;
   display: flex;
   gap: 0.7rem;
 }
 
-.icons {
+.icon {
   cursor: pointer;
   font-size: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
+  
+  .popup {
+    top: 120px;
+    left: 200px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .container {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 2rem 0.5rem;
+  }
+  
+  .navigation {
+    font-size: 18px;
+  }
+  
+  .popup {
+    top: 85px;
+    left: 120px;
+    padding: 10px;
+  }
 }

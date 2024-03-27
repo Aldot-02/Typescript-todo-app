@@ -1,30 +1,7 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import { Provider } from 'react-redux';
-// import './index.css';
-// import App from './App';
-// import reportWebVitals from './reportWebVitals';
-// import store from './store';
-
-// // declare module 'react-dom' {
-// //   let createRoot: any;
-// // }
-
-// ReactDOM.createRoot(
-//   <React.StrictMode>
-//     <Provider store={store}>
-//       <App />
-//     </Provider>
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// );
-
-// reportWebVitals();
-
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -34,7 +11,11 @@ const root = ReactDOM.createRoot(document.getElementById('root') || document.cre
 root.render(
   <Provider store={store}>
     <React.StrictMode>
-      <App />
+      <BrowserRouter>
+      <Routes>
+          <Route path="*" element={<App />} />
+        </Routes>
+      </BrowserRouter>
     </React.StrictMode>
   </Provider>
 );
