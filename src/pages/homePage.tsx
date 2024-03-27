@@ -30,7 +30,7 @@ const HomePage: React.FC<PropsFromRedux> = ({ tasks, text, isUpdating, taskId, s
     };
   
     fetchUserInfo();
-  }, []);  
+  }, [navigate]);  
 
   useEffect(() => {
     if (userInfo) {
